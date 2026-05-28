@@ -11,7 +11,7 @@ export const user = pgTable('user', {
         .notNull()
         .default('restaurant_owner'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
 
 export const session = pgTable('session', {
