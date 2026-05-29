@@ -26,4 +26,4 @@ export const DB = Symbol('DB');
     exports: [DB],
 })
 
-export class dbModule { };
+export class DbModule { };
