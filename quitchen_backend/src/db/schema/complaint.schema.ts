@@ -5,7 +5,7 @@ import { restaurant } from "./restaurant.schema";
 
 export const complaint = pgTable('complaints', {
     id: uuid('id').primaryKey().notNull().defaultRandom().$defaultFn(() => crypto.randomUUID()),
-    restaurantId: text('restaurant_id')
+    restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' }),
     subject: text('subject').notNull(),
