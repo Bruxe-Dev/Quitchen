@@ -35,11 +35,11 @@ export const order = pgTable('order', {
 
 // Individual line items — for easy querying of "what was ordered"
 export const orderItem = pgTable('order_item', {
-    id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
     orderId: text('order_id')
         .notNull()
         .references(() => order.id, { onDelete: 'cascade' }),
-    menuItemId: text('menu_item_id').notNull(), // Reference only, no FK so menu changes don't break history
+    menuItemId: uuid('menu_item_id').notNull(), //
     menuItemName: text('menu_item_name').notNull(),   // Snapshot at order time
     menuItemPrice: doublePrecision('menu_item_price').notNull(), // Snapshot at order time
     quantity: integer('quantity').notNull(),

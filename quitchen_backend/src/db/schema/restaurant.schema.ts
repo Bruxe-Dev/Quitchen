@@ -24,7 +24,7 @@ export const restaurant = pgTable('restaurant', {
 });
 
 export const seatingMap = pgTable('seating_map', {
-    id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
     restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' })

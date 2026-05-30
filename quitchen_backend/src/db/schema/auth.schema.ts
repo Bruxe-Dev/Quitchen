@@ -29,8 +29,8 @@ export const session = pgTable('session', {
 
 export const account = pgTable('account', {
     id: uuid('id').primaryKey().defaultRandom(),
-    accountId: text('account_id').notNull(),
-    providerId: text('provider_id').notNull(),
+    accountId: uuid('account_id').notNull(),
+    providerId: uuid('provider_id').notNull(),
     userId: uuid('user_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' }),
@@ -46,7 +46,7 @@ export const account = pgTable('account', {
 });
 
 export const verification = pgTable('verification', {
-    id: text('id').primaryKey(),
+    id: uuid('id').primaryKey(),
     identifier: text('identifier').notNull(),
     value: text('value').notNull(),
     expiresAt: timestamp('expires_at').notNull(),
