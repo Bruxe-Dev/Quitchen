@@ -3,7 +3,7 @@ import { restaurant } from './restaurant.schema';
 import { restaurantTable } from './restaurant.schema';
 
 export const reservation = pgTable('reservation', {
-    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().defaultRandom(),
     restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' }),

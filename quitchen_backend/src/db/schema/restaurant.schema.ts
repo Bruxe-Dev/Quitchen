@@ -2,7 +2,7 @@ import { pgTable, text, timestamp, boolean, jsonb, doublePrecision, integer, uui
 import { user } from './auth.schema'
 
 export const restaurant = pgTable('restaurant', {
-    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().defaultRandom(),
     ownerId: uuid('owner_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' })
@@ -37,7 +37,6 @@ export const restaurantTable = pgTable('restaurant_table', {
     id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
     restaurantId: uuid('restaurant_id')
         .notNull()
-        .unique()
         .references(() => restaurant.id, { onDelete: 'cascade' }),
     tableNumber: integer('table_number').notNull(),
     seats: integer('seats').notNull(),

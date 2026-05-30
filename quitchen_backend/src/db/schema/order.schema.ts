@@ -1,14 +1,13 @@
 import { pgTable, text, uuid, boolean, integer, timestamp, jsonb, doublePrecision } from 'drizzle-orm/pg-core'
 import { restaurant } from './restaurant.schema'
 import { restaurantTable } from './restaurant.schema'
-import { table } from 'console'
 
 export const order = pgTable('order', {
-    id: uuid('id').primaryKey().defaultRandom().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().defaultRandom(),
     restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' }),
-    tableId: uuid('restaurant_id')
+    tableId: uuid('table_id')
         .references(() => restaurantTable.id, { onDelete: 'set null' }),
 
     customerName: text('customer_name').notNull(),

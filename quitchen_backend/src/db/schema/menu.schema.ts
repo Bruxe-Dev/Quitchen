@@ -2,7 +2,7 @@ import { pgTable, uuid, text, boolean, integer, doublePrecision, timestamp } fro
 import { restaurant } from './restaurant.schema';
 
 export const menuCategory = pgTable('menu_category', {
-    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().defaultRandom(),
     restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' }),
@@ -14,7 +14,7 @@ export const menuCategory = pgTable('menu_category', {
 });
 
 export const menuItem = pgTable('menu_item', {
-    id: uuid('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().defaultRandom(),
     categoryId: uuid('category_id')
         .notNull()
         .references(() => menuCategory.id, { onDelete: 'cascade' }),

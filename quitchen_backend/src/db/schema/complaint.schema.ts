@@ -4,7 +4,7 @@ import { pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
 import { restaurant } from "./restaurant.schema";
 
 export const complaint = pgTable('complaints', {
-    id: uuid('id').primaryKey().notNull().defaultRandom().$defaultFn(() => crypto.randomUUID()),
+    id: uuid('id').primaryKey().notNull().defaultRandom(),
     restaurantId: uuid('restaurant_id')
         .notNull()
         .references(() => restaurant.id, { onDelete: 'cascade' }),
