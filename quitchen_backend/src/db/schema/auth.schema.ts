@@ -1,10 +1,10 @@
-import { pgTable, boolean, text, timestamp, integer, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
 
+// This table stores restaurant owner accounts (and the platform admin)
 export const user = pgTable('user', {
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: text('id').primaryKey(),
     name: text('name').notNull(),
-    email: text('email').unique().notNull(),
-    phone: text('phone').notNull(),
+    email: text('email').notNull().unique(),
     emailVerified: boolean('email_verified').notNull().default(false),
     image: text('image'),
     role: text('role', { enum: ['restaurant_owner', 'platform_admin'] })
@@ -14,24 +14,25 @@ export const user = pgTable('user', {
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
 
+// Better Auth requires these three tables to manage sessions and accounts
 export const session = pgTable('session', {
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: text('id').primaryKey(),
     expiresAt: timestamp('expires_at').notNull(),
     token: text('token').notNull().unique(),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
     ipAddress: text('ip_address'),
     userAgent: text('user_agent'),
-    userId: uuid('user_id')
+    userId: text('user_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' }),
-})
+});
 
 export const account = pgTable('account', {
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: text('id').primaryKey(),
     accountId: text('account_id').notNull(),
     providerId: text('provider_id').notNull(),
-    userId: uuid('user_id')
+    userId: text('user_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' }),
     accessToken: text('access_token'),
@@ -46,7 +47,7 @@ export const account = pgTable('account', {
 });
 
 export const verification = pgTable('verification', {
-    id: uuid('id').primaryKey(),
+    id: text('id').primaryKey(),
     identifier: text('identifier').notNull(),
     value: text('value').notNull(),
     expiresAt: timestamp('expires_at').notNull(),
