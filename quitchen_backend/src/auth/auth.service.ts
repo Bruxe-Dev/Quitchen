@@ -4,7 +4,7 @@ import { auth } from './auth.config'
 @Injectable()
 
 export class AuthService {
-    getAUthHandler() {
+    getAuthHandler() {
         return auth.handler;
     }
 
