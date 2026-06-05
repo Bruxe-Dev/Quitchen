@@ -1,5 +1,9 @@
-import { All, Response, Req, Res, Controller } from '@nestjs/common'
-import { AuthService } from './auth.service'
+import { All, Req, Res, Controller, Post, Get, Body } from '@nestjs/common'
+import { AuthService } from './auth.service';
+import { CurrentUser } from '../common/decorators/auth.decorator';
+import { Public } from '../common/decorators/public.decorator';
+import type { AuthenticatedUser } from './types';
+import { email } from 'zod';
 
 @Controller('auth')
 export class AuthController {
@@ -29,5 +33,30 @@ export class AuthController {
         });
 
         (res as any).status(response.status).send(responseBody);
+    }
+
+    @Post('logout')
+    async logout(@Res() res: Response) {
+        return res.json({
+            message: 'Logged out Sucessfully'
+        })
+    }
+
+    @Get('me')
+    async getCurrentUser(@CurrentUser() user: AuthenticatedUser) {
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            phone: user.phone,
+            image: user.image
+        }
+    }
+
+    @Public()
+    @Get()
+    async health() {
+        return { status: "Auth Service is running" }
     }
 }
