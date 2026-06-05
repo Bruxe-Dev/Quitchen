@@ -34,7 +34,6 @@ export class AuthController {
         return { status: "Auth Service is running" }
     }
 
-    // Catch-all for Better Auth (lowest priority - last)
     @All('*')
     async handleAuth(@Req() req: Request, @Res() res: Response) {
         const url = new URL(
