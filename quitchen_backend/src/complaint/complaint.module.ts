@@ -1,0 +1,12 @@
+import { Module } from '@nestjs/common';
+import { ComplaintController } from './complaint.controller';
+import { ComplaintService } from './complaint.service';
+import { RestaurantModule } from '../restaurant/restaurant.module';
+
+@Module({
+    imports: [RestaurantModule],
+    controllers: [ComplaintController],
+    providers: [ComplaintService],
+    exports: [ComplaintService],
+})
+export class ComplaintModule { }
