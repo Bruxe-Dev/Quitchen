@@ -2,7 +2,7 @@ import { CanActivate, Injectable, ForbiddenException, ExecutionContext } from "@
 import { Reflector } from "@nestjs/core";
 
 @Injectable()
-export class RouteGuard implements CanActivate {
+export class RoleGuard implements CanActivate {
     constructor(private reflector: Reflector) { }
     canActivate(context: ExecutionContext): boolean {
         const requiredRoles = this.reflector.get<string[]>(

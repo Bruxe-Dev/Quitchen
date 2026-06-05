@@ -3,7 +3,6 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from '../common/decorators/auth.decorator';
 import { Public } from '../common/decorators/public.decorator';
 import type { AuthenticatedUser } from './types';
-import { email } from 'zod';
 
 @Controller('auth')
 export class AuthController {
@@ -38,7 +37,7 @@ export class AuthController {
     @Post('logout')
     async logout(@Res() res: Response) {
         return res.json({
-            message: 'Logged out Sucessfully'
+            message: 'Loged out sucessfully'
         })
     }
 
